@@ -1,0 +1,14 @@
+{
+  "name": "pdm_cli",
+  "version": "1.0.0",
+  "description": "makes a pdm tree",
+  "scripts": {
+	"test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Garret Meier <meier.garret@gmail.com",
+  "license": "ISC",
+  "preferGlobal": true,
+  "bin": {
+    "pdm_cli": "index.js"
+   }
+}
