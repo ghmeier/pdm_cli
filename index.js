@@ -10,28 +10,47 @@ var raw_pdms = fs.readFileSync(path.resolve(__dirname,"pdms.json"),"utf8");
 var pdms = JSON.parse(raw_pdms);
 
 var commands = ["nw","ad","rm","ls","crp","help"];
-var flags = {
+var command_detail = {
 	"nw":{
-		//"s":"<start_node>"
-		"-f":"from a file"
+		"description":"Create a new pdm tree with the specified name.",
+		"args":{
+			"name":"Name of the pdm"
+		},
+		"flags":{
+			"-f":"Load pdm from comma-separated file. Provide file name as an argument"
+		}
 	},
 	"ad":{
-		"-s":"is start node"
+		"description":"Add a node with given id, duration, and dependencies",
+		"args":{
+			"pdm_name":"pdm to add this node to",
+			"id":"Name of the node",
+			"duration":"Duration of this node",
+			"dependencies":"Comma separated list of dependency id's"
+		}
 	},
 	"rm":{
-		"-a":"remove all"
-	},
-	"ed":{
-		"-s":"is start node"
+		"description":"Remove a node or entire pdm",
+		"args":{
+			"pdm_name":"name of the pdm to select",
+			"id":"Id of the node to remove"
+		},
+		"flags":{
+			"-a":"remove all"
+		}
 	},
 	"ls":{
-
+		"description":"List pdm nodes",
+		"args":{
+			"pdm_name":"pdm to list, if not present, lists all pdm names"
+		}
 	},
 	"crp":{
-
+		"description":"Print the pritical path nodes of the pdm",
+		"args":{
+			"pdm_name":"Name of the pdm to analyze"
+		}
 	},
-	"help":{
-	}
 };
 
 var command = args[0];
@@ -169,7 +188,6 @@ switch (command){
 		break;
 	case commands[3]:
 		if (args.length < 2){
-			//console.log("PDM name is required");
 			console.log(Object.keys(pdms.data));
 			break;
 		}
@@ -182,8 +200,7 @@ switch (command){
 		}
 		
 		var tree = pdmTree.fromJSON(pdms.data[name]);
-		//pdmTree.topoSort(pdms.data[name])
-		console.log(tree.printNodes());
+		tree.printNodes();
 		break;
 
 	case commands[4]:
@@ -206,7 +223,7 @@ switch (command){
 
 		break;
 	case commands[5]:
-
+		console.log(command_detail);
 		break;
 	default:
 		console.log("Unrecognized command, try pdm_cli help for details.");
