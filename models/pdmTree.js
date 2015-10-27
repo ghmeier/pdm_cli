@@ -47,15 +47,16 @@ pdmTree.fromJSON = function(json){
 
 pdmTree.prototype.addNode = function(node,depIds){
 	if (this.nodes[node.id]){
-		//console.log("Node with id "+node.id+" already exists.");
-		var cur_deps = [];
+		console.log("Node with id "+node.id+" already exists.");
+		return;
+		/*var cur_deps = [];
 		if (node.dependencies){
 			node.dependencies.filter(function(dep){
 				return dep.id;
 			});
 		}
 
-		depIds.concat(cur_deps);
+		depIds.concat(cur_deps);*/
 	}
 
 	for (id in depIds){
@@ -64,11 +65,11 @@ pdmTree.prototype.addNode = function(node,depIds){
 		if (this.nodes[cur]){
 			node.addDependancy(this.nodes[cur]);
 		}else{
-			//console.log("Error adding node, dependancy with id "+cur+" does not exist.");
-			//return;
-			var unknown = new pdmNode(cur,0);
+			console.log("Error adding node, dependancy with id "+cur+" does not exist.");
+			return;
+			/*var unknown = new pdmNode(cur,0);
 			this.addNode(unknown);
-			node.addDependancy(unknown);
+			node.addDependancy(unknown);*/
 		}
 
 	}
