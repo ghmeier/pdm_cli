@@ -85,9 +85,13 @@ switch (command){
 			liner.on("readable",function(){
 				var line;
 				while (line = liner.read()){
-					var node_args = line.split(",");
-					var node = new pdmNode(node_args[0],node_args[1]);
-					tree.addNode(node,node_args.slice(2));
+					var node_args = line.split(" ");
+					var node = new pdmNode(node_args[0],parseInt(node_args[1]));
+					var dependencies = [];
+					if (node_args[2]){
+						dependencies = node_args[2].split(",");
+					}
+					tree.addNode(node,dependencies);
 				}
 
 				pdms.data[nw_name] = tree.toJSON();
@@ -200,6 +204,9 @@ switch (command){
 		}
 		
 		var tree = pdmTree.fromJSON(pdms.data[name]);
+		console.log("Critical Path:");
+		tree.printCriticalPath();
+		console.log("Task List:");
 		tree.printNodes();
 		break;
 

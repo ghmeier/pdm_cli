@@ -2,16 +2,24 @@
 
 Installation: 
   > make sure you've installed the latest version of nodejs and npm.
-  > in the root directory, run `npm link`
-  > the alias "pdm_cli" should now work
+  > in this project's root directory, run `npm link`
+  > the alias "pdm_cli" should now work on the command line
 
 Install package:
   > run `npm install --global pdm_cli
 
+Running the Test:
+  > Make sure you're in the directory with test.pdm
+  > run 'pdm_cli nw test -f test.pdm'
+  > This loads the pdm described in test.pdm and saves it as 'test'
+  > run 'pdm_cli ls test' 
+  > This prints the critical path as well as all the tasks.
+  
 Commands:
   > nw <pdm_name> <-f> <file_name>
     - Add a pdm with the specfied name
-    - If the -f flag is present, load the pdm from a file
+    - If the -f flag is present, load the pdm from a file with input like:
+    	> <TaskID> <Duration> <Dependency_1>,<Dependency_2>,....<Dependency_x>
   > ad <pdm_name> <id> <duration> <dependencies>
     - Adds or updates a node in the pdm_name pdm
     - Node has an id from the given id
